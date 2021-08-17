@@ -1,0 +1,68 @@
+<idea-plugin>
+    <id>com.joker.serial_number</id>
+    <name>Serial Number</name>
+    <vendor email="1908105978@qq.com">Joker</vendor>
+    <idea-version since-build="212" until-build="212.*"/>
+
+    <description><![CDATA[
+
+    Serial Number is a plugin that help you quickly generate serial numbers.<br/>
+    Plugin helps you generate ordered test cases just in Intellij frame.<br/>
+    <br/>
+
+    中文:<br/>
+    Serial Number是一个快捷生成序号的插件<br/>
+    Serial Number旨在帮助你生成有序的测试用例<br/>
+    <br/><br/>
+
+    <h3>v1.0.0-beta01</h3>
+    <ul>
+    <li>Initial version</li>
+    <li>Generates ordered numbers from the cursor</li>
+    </ul>
+
+    ]]>
+    </description>
+
+
+    <!-- please see https://plugins.jetbrains.com/docs/intellij/plugin-compatibility.html
+         on how to target different products -->
+    <depends>com.intellij.modules.platform</depends>
+    <depends>com.intellij.modules.java</depends>
+
+
+    <extensions defaultExtensionNs="com.intellij">
+        <!-- Add your extensions here -->
+    </extensions>
+
+    <actions>
+        <action id="GenerateSerialNumber" class="com.joker.plugin.action.GenerateSerialNumber" text="Serial Number" description="Generate serial number">
+            <add-to-group group-id="GenerateGroup" anchor="first"/>
+            <keyboard-shortcut keymap="$default" first-keystroke="ctrl shift n"/>
+            <keyboard-shortcut keymap="Default for GNOME" first-keystroke="ctrl shift n"/>
+            <keyboard-shortcut keymap="Default for KDE" first-keystroke="ctrl shift n"/>
+            <keyboard-shortcut keymap="Default for XWin" first-keystroke="ctrl shift n"/>
+            <keyboard-shortcut keymap="Eclipse" first-keystroke="ctrl shift n"/>
+            <keyboard-shortcut keymap="Eclipse (Mac OS X)" first-keystroke="ctrl shift n"/>
+            <keyboard-shortcut keymap="Emacs" first-keystroke="ctrl shift n"/>
+            <keyboard-shortcut keymap="Mac OS X" first-keystroke="ctrl shift n"/>
+            <keyboard-shortcut keymap="Mac OS X 10.5+" first-keystroke="ctrl shift n"/>
+            <keyboard-shortcut keymap="macOS System Shortcuts" first-keystroke="ctrl shift j"/>
+            <keyboard-shortcut keymap="NetBeans 6.5" first-keystroke="ctrl shift n"/>
+            <keyboard-shortcut keymap="QtCreator" first-keystroke="ctrl shift n"/>
+            <keyboard-shortcut keymap="QtCreator (Mac OS X)" first-keystroke="ctrl shift n"/>
+            <keyboard-shortcut keymap="ReSharper" first-keystroke="ctrl shift n"/>
+            <keyboard-shortcut keymap="ReSharper OSX" first-keystroke="ctrl shift n"/>
+            <keyboard-shortcut keymap="Sublime Text" first-keystroke="ctrl shift n"/>
+            <keyboard-shortcut keymap="Sublime Text (Mac OS X)" first-keystroke="ctrl shift n"/>
+            <keyboard-shortcut keymap="Visual Assist" first-keystroke="ctrl shift n"/>
+            <keyboard-shortcut keymap="Visual Assist OSX" first-keystroke="ctrl shift n"/>
+            <keyboard-shortcut keymap="Visual Studio" first-keystroke="ctrl shift n"/>
+            <keyboard-shortcut keymap="Visual Studio for Mac" first-keystroke="ctrl shift n"/>
+            <keyboard-shortcut keymap="Visual Studio OSX" first-keystroke="ctrl shift n"/>
+            <keyboard-shortcut keymap="VSCode" first-keystroke="ctrl shift n"/>
+            <keyboard-shortcut keymap="VSCode OSX" first-keystroke="ctrl shift n"/>
+            <keyboard-shortcut keymap="Xcode" first-keystroke="ctrl shift n"/>
+        </action>
+    </actions>
+</idea-plugin>

@@ -1,0 +1,48 @@
+plugins {
+    id 'org.jetbrains.intellij' version '1.1.4'
+    id 'java'
+}
+
+group 'com.joker'
+version '1.0.0-beta01'
+
+sourceCompatibility = JavaVersion.VERSION_11
+targetCompatibility = JavaVersion.VERSION_11
+
+repositories {
+    mavenCentral()
+}
+
+intellij {
+    plugins = ['com.intellij.java']
+    version = '212.4746.92'   // baseIntelliJPlatformVersion
+    type = 'IU'
+    downloadSources = true
+}
+
+patchPluginXml {
+    changeNotes = """
+
+    <h3>v1.0.0-beta01</h3>
+    <ul>
+    <li>Initial version</li>
+    <li>Generates ordered numbers from the cursor</li>
+    </ul>
+    
+    """
+}
+
+test {
+    useJUnitPlatform()
+}
+
+dependencies {
+}
+
+tasks.withType(JavaCompile) {
+    options.encoding = "UTF-8"
+}
+
+runIde {
+    jvmArgs '--add-exports', 'java.base/jdk.internal.vm=ALL-UNNAMED'
+}
