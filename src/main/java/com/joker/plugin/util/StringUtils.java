@@ -430,4 +430,8 @@ public class StringUtils {
             return null;
         }
     }
+
+    public static int getNumLength(long num) {
+        return String.valueOf(num).length();
+    }
 }

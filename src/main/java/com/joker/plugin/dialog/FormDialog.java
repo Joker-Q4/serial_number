@@ -5,10 +5,9 @@ import com.intellij.openapi.editor.Caret;
 import com.intellij.openapi.editor.Document;
 import com.intellij.openapi.editor.Editor;
 import com.intellij.openapi.ui.DialogWrapper;
-import com.intellij.openapi.ui.Messages;
-import com.intellij.openapi.ui.ValidationInfo;
 import com.joker.plugin.util.StringMessage;
 import com.joker.plugin.util.StringUtils;
+import com.joker.plugin.util.ValidationUtil;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -45,14 +44,6 @@ public class FormDialog extends DialogWrapper {
     }
 
     @Override
-    protected @Nullable ValidationInfo doValidate() {
-        if (!editor.getDocument().isWritable()) {
-            return new ValidationInfo(StringMessage.CANNOT_BE_WRITTEN);
-        }
-        return super.doValidate();
-    }
-
-    @Override
     protected Action @NotNull [] createActions() {
         DialogWrapperExitAction exitAction = new DialogWrapperExitAction(StringMessage.BUTTON_CANCEL, CANCEL_EXIT_CODE);
         CustomOKAction okAction = new CustomOKAction();
@@ -83,30 +74,18 @@ public class FormDialog extends DialogWrapper {
         @Override
         protected void doAction(ActionEvent e) {
 
-            ValidationInfo validationInfo = doValidate();
-            if (validationInfo != null) {
-                Messages.showMessageDialog(validationInfo.message, StringMessage.PLEASE_CHECK, Messages.getInformationIcon());
+            String startText = StringUtils.trimAllWhitespace(startContent.getText());
+            String intervalText = StringUtils.trimAllWhitespace(intervalContent.getText());
+
+            if(!ValidationUtil.hasText(startText, intervalText)){
                 return;
             }
 
-            String startText = startContent.getText();
-            String intervalText = intervalContent.getText();
-
-            if (!StringUtils.hasText(startText) || !StringUtils.hasText(intervalText)) {
-                Messages.showMessageDialog(StringMessage.CANNOT_BE_BLANK, StringMessage.ERROR_TITLE, Messages.getInformationIcon());
+            if(!ValidationUtil.beLongType(startText, intervalText)){
                 return;
             }
 
-            long startNum, intervalNum;
-            try {
-                startNum = Long.parseLong(startText);
-                intervalNum = Long.parseLong(intervalText);
-            } catch (Exception ex) {
-                Messages.showMessageDialog(StringMessage.TYPE_INT, StringMessage.ERROR_TITLE, Messages.getInformationIcon());
-                return;
-            }
-
-            generate(startNum, intervalNum);
+            generate(Long.parseLong(startText), Long.parseLong(intervalText));
             close(CANCEL_EXIT_CODE);
 
         }
@@ -124,18 +103,10 @@ public class FormDialog extends DialogWrapper {
                     offset = caretTemp.getSelectionStart();
                     int selectionEnd = caretTemp.getSelectionEnd();
                     document.deleteString(offset, selectionEnd);
-                    document.insertString(offset, num + "");
-                    caretTemp.moveToOffset(offset + getNumLenght(num));
-                    continue;
                 }
                 document.insertString(offset, num + "");
-                caretTemp.moveToOffset(offset + getNumLenght(num));
+                caretTemp.moveToOffset(offset + StringUtils.getNumLength(num));
             }
         });
-    }
-
-    private int getNumLenght(long num) {
-        num = num > 0 ? num : -num;
-        return String.valueOf(num).length();
     }
 }

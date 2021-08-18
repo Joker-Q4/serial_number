@@ -4,7 +4,7 @@ plugins {
 }
 
 group 'com.joker'
-version '1.0.0-beta01'
+version '1.0.0-beta02'
 
 sourceCompatibility = JavaVersion.VERSION_11
 targetCompatibility = JavaVersion.VERSION_11
@@ -22,6 +22,12 @@ intellij {
 
 patchPluginXml {
     changeNotes = """
+
+
+    <h3>v1.0.0-beta02</h3>
+    <ul>
+    <li>Optimize check code</li>
+    </ul>
 
     <h3>v1.0.0-beta01</h3>
     <ul>
