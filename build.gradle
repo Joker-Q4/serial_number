@@ -4,7 +4,7 @@ plugins {
 }
 
 group 'com.joker'
-version '1.0.0-beta02'
+version '1.0.0-beta03'
 
 sourceCompatibility = JavaVersion.VERSION_11
 targetCompatibility = JavaVersion.VERSION_11
@@ -15,27 +15,10 @@ repositories {
 
 intellij {
     plugins = ['com.intellij.java']
-    version = '212.4746.92'   // baseIntelliJPlatformVersion
+    version = '2021.1'
     type = 'IU'
     downloadSources = true
-}
-
-patchPluginXml {
-    changeNotes = """
-
-
-    <h3>v1.0.0-beta02</h3>
-    <ul>
-    <li>Optimize check code</li>
-    </ul>
-
-    <h3>v1.0.0-beta01</h3>
-    <ul>
-    <li>Initial version</li>
-    <li>Generates ordered numbers from the cursor</li>
-    </ul>
-    
-    """
+    updateSinceUntilBuild = false
 }
 
 test {
@@ -50,5 +33,5 @@ tasks.withType(JavaCompile) {
 }
 
 runIde {
-    jvmArgs '--add-exports', 'java.base/jdk.internal.vm=ALL-UNNAMED'
+    jvmArgs '--add-exports', 'java.base/jdk.internal.vm=ALL-UNNAMED', '-Dfile.encoding=utf-8'
 }

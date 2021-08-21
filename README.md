@@ -9,6 +9,9 @@
 * Serial Number是一个快捷生成序号的插件
 * Serial Number旨在帮助你生成有序的测试用例
 
+## Change Notes
+### v1.0.0-beta03
+* Optimize version compatibility
 
 ### v1.0.0-beta02
 * Optimize check code

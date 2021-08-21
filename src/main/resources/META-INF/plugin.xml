@@ -1,8 +1,9 @@
 <idea-plugin>
     <id>com.joker.serial_number</id>
     <name>Serial Number</name>
-    <vendor email="1908105978@qq.com">Joker</vendor>
-    <idea-version since-build="212" until-build="212.*"/>
+    <vendor email="1908105978@qq.com" url="https://github.com/Joker-Q4/serial_number">Joker</vendor>
+    <version>1.0.0-beta03</version>
+    <idea-version since-build="211" until-build="212.4746.*" />
 
     <description><![CDATA[
 
@@ -17,6 +18,25 @@
 
     ]]>
     </description>
+
+    <change-notes><![CDATA[
+
+        <h3>v1.0.0-beta03</h3>
+        <ul>
+            <li>Optimize version compatibility</li>
+        </ul>
+        <h3>v1.0.0-beta02</h3>
+        <ul>
+            <li>Optimize check code</li>
+        </ul>
+        <h3>v1.0.0-beta01</h3>
+        <ul>
+            <li>Initial version</li>
+            <li>Generates ordered numbers from the cursor</li>
+        </ul>
+
+    ]]>
+    </change-notes>
 
 
     <!-- please see https://plugins.jetbrains.com/docs/intellij/plugin-compatibility.html
