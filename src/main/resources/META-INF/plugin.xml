@@ -2,8 +2,8 @@
     <id>com.joker.serial_number</id>
     <name>Serial Number</name>
     <vendor email="1908105978@qq.com" url="https://github.com/Joker-Q4/serial_number">Joker</vendor>
-    <version>1.0.2</version>
-    <idea-version since-build="211" until-build="213.*" />
+    <version>1.0.3</version>
+    <idea-version since-build="201" until-build="213.*" />
 
     <description><![CDATA[
 
@@ -21,6 +21,10 @@
 
     <change-notes><![CDATA[
 
+        <h3>v1.0.3</h3>
+        <ul>
+            <li>Optimize version compatibility</li>
+        </ul>
         <h3>v1.0.2</h3>
         <ul>
             <li>Optimize version compatibility</li>
