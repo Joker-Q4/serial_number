@@ -1,13 +1,17 @@
 plugins {
-    id 'org.jetbrains.intellij' version '1.1.4'
+    id 'org.jetbrains.intellij' version '1.4.0'
     id 'java'
 }
 
 group 'com.joker'
 version '1.0.3'
 
-sourceCompatibility = JavaVersion.VERSION_11
-targetCompatibility = JavaVersion.VERSION_11
+tasks.withType(JavaCompile) {
+    sourceCompatibility = JavaVersion.VERSION_11
+    targetCompatibility = JavaVersion.VERSION_11
+    options.encoding = 'UTF-8'
+    options.warnings = false
+}
 
 repositories {
     mavenCentral()
@@ -15,7 +19,7 @@ repositories {
 
 intellij {
     plugins = ['com.intellij.java']
-    version = '2020.1'
+    version = '2021.3'
     type = 'IU'
     downloadSources = true
     updateSinceUntilBuild = false
@@ -26,10 +30,6 @@ test {
 }
 
 dependencies {
-}
-
-tasks.withType(JavaCompile) {
-    options.encoding = "UTF-8"
 }
 
 runIde {
