@@ -10,6 +10,9 @@
 * Serial Number旨在帮助你生成有序的测试用例
 
 ## Change Notes
+### v1.0.4
+* Optimize version compatibility
+
 ### v1.0.3
 * Optimize version compatibility
 
