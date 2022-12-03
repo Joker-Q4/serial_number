@@ -1,12 +1,12 @@
 plugins {
-    id "org.jetbrains.intellij" version "1.7.0"
+    id 'org.jetbrains.intellij' version '1.10.0'
     id 'java'
 }
 
 group 'com.joker'
-version '1.0.5'
+version '1.0.6'
 
-tasks.withType(JavaCompile) {
+tasks.withType(JavaCompile).configureEach {
     sourceCompatibility = JavaVersion.VERSION_11
     targetCompatibility = JavaVersion.VERSION_11
     options.encoding = 'UTF-8'
