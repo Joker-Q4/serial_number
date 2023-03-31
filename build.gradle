@@ -1,27 +1,41 @@
 plugins {
-    id 'org.jetbrains.intellij' version '1.10.0'
-    id 'java'
+    id "org.jetbrains.intellij" version "1.13.2"
+    id "java"
 }
 
-group 'com.joker'
-version '1.0.6'
+def v = "1.0.7"
+
+group "com.joker"
+version v
 
 tasks.withType(JavaCompile).configureEach {
     sourceCompatibility = JavaVersion.VERSION_11
     targetCompatibility = JavaVersion.VERSION_11
-    options.encoding = 'UTF-8'
+    options.encoding = "UTF-8"
     options.warnings = false
 }
 
-repositories {
-    maven { url 'https://plugins.gradle.org/m2/' }
-    mavenCentral()
+patchPluginXml {
+    version = v
+    sinceBuild = "201"
+    untilBuild = "232.*"
 }
 
+repositories {
+    maven { url "https://maven.aliyun.com/repository/gradle-plugin" }
+    maven { url "https://maven.aliyun.com/repository/central" }
+    maven { url "https://maven.aliyun.com/repository/public" }
+    maven { url "https://maven.aliyun.com/repository/google" }
+    maven { url "https://maven.aliyun.com/repository/gradle-plugin" }
+    maven { url "https://plugins.gradle.org/m2/" }
+}
+
+// Configure Gradle IntelliJ Plugin
+// Read more: https://plugins.jetbrains.com/docs/intellij/tools-gradle-intellij-plugin.html
 intellij {
-    plugins = ['com.intellij.java']
-    version = '2022.2'
-    type = 'IU'
+    plugins = ["com.intellij.java"]
+    version = "2022.2.4"
+    type = "IU"
     downloadSources = true
     updateSinceUntilBuild = false
 }
@@ -34,5 +48,5 @@ dependencies {
 }
 
 runIde {
-    jvmArgs '--add-exports', 'java.base/jdk.internal.vm=ALL-UNNAMED', '-Dfile.encoding=utf-8'
+    jvmArgs "--add-exports", "java.base/jdk.internal.vm=ALL-UNNAMED", "-Dfile.encoding=utf-8"
 }
