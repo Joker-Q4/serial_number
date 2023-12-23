@@ -68,10 +68,10 @@ public class ValidationUtil {
      * @return 结果
      */
     private static boolean isIntegerOrLong(String str) {
-        if (null == str || "".equals(str)) {
+        if (null == str || str.isEmpty()) {
             return false;
         }
-        Pattern pattern = Pattern.compile("^-?[\\d]+$");
+        Pattern pattern = Pattern.compile("^-?\\d+$");
         return pattern.matcher(str).matches();
     }
 }

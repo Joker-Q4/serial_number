@@ -281,7 +281,7 @@ public class StringUtils {
             } else {
                 char[] chars = str.toCharArray();
                 chars[0] = updatedChar;
-                return new String(chars, 0, chars.length);
+                return new String(chars);
             }
         }
     }
@@ -355,7 +355,7 @@ public class StringUtils {
             country = "";
         }
 
-        return language.length() > 0 ? new Locale(language, country, variant) : null;
+        return !language.isEmpty() ? new Locale(language, country, variant) : null;
     }
 
     private static void validateLocalePart(String localePart) {
