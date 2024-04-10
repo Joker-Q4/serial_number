@@ -1,9 +1,9 @@
 plugins {
-    id "org.jetbrains.intellij" version "1.15.0"
+    id "org.jetbrains.intellij" version "1.17.2"
     id "java"
 }
 
-def v = "1.0.8"
+def v = "1.0.9"
 
 group "com.joker"
 version v
@@ -17,8 +17,8 @@ tasks.withType(JavaCompile).configureEach {
 
 patchPluginXml {
     version = v
-    sinceBuild = "201"
-    untilBuild = "233.*"
+//    sinceBuild = "201"
+//    untilBuild = "*"
 }
 
 repositories {
@@ -33,9 +33,9 @@ repositories {
 // Configure Gradle IntelliJ Plugin
 // Read more: https://plugins.jetbrains.com/docs/intellij/tools-gradle-intellij-plugin.html
 intellij {
-    plugins = ["com.intellij.java", "com.intellij.database"]
+    plugins = ["com.intellij.java"]
     version = "2023.3.2"
-    type = "IU"
+    type = "IC"
     downloadSources = true
     updateSinceUntilBuild = false
 }
