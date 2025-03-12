@@ -1,9 +1,10 @@
 plugins {
-    id "org.jetbrains.intellij" version "1.17.2"
+//    id "org.jetbrains.intellij" version "1.17.2"
+    id 'org.jetbrains.intellij.platform' version '2.3.0'
     id "java"
 }
 
-def v = "1.0.9"
+def v = "1.0.10"
 
 group "com.joker"
 version v
@@ -15,6 +16,24 @@ tasks.withType(JavaCompile).configureEach {
     options.warnings = false
 }
 
+intellijPlatform {
+    pluginConfiguration {
+        id = 'com.joker.serial_number'
+        name = 'Serial Number'
+        version = v
+        ideaVersion {
+            sinceBuild = '201'
+//            untilBuild = '241.*'
+            untilBuild = provider { null } as Provider<? extends String>
+        }
+        vendor {
+            name = 'Joker'
+            email = '1908105978@qq.com'
+            url = 'https://github.com/Joker-Q4/serial_number'
+        }
+    }
+}
+
 patchPluginXml {
     version = v
 //    sinceBuild = "201"
@@ -22,6 +41,9 @@ patchPluginXml {
 }
 
 repositories {
+    intellijPlatform {
+        defaultRepositories()
+    }
     maven { url "https://maven.aliyun.com/repository/gradle-plugin" }
     maven { url "https://maven.aliyun.com/repository/central" }
     maven { url "https://maven.aliyun.com/repository/public" }
@@ -32,19 +54,23 @@ repositories {
 
 // Configure Gradle IntelliJ Plugin
 // Read more: https://plugins.jetbrains.com/docs/intellij/tools-gradle-intellij-plugin.html
-intellij {
-    plugins = ["com.intellij.java"]
-    version = "2023.3.2"
-    type = "IC"
-    downloadSources = true
-    updateSinceUntilBuild = false
-}
+//intellij {
+//    plugins = ["com.intellij.java"]
+//    version = "2023.3.2"
+//    type = "IC"
+//    downloadSources = true
+//    updateSinceUntilBuild = false
+//}
 
 test {
     useJUnitPlatform()
 }
 
 dependencies {
+    intellijPlatform {
+//        local 'D:\\Program Files\\JetBrains\\IntelliJ IDEA 2024.3.2.2'
+        local 'D:\\Program Files\\JetBrains\\IntelliJ IDEA Community Edition 2024.3.4.1'
+    }
 }
 
 runIde {

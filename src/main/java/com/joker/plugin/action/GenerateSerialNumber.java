@@ -13,6 +13,10 @@ import com.joker.plugin.util.ValidationUtil;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+/**
+ * @author Joker
+ * @since 2021/08/15
+ */
 public class GenerateSerialNumber extends EditorAction {
 
     protected GenerateSerialNumber() {
