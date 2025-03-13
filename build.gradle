@@ -4,7 +4,7 @@ plugins {
     id "java"
 }
 
-def v = "1.0.10"
+def v = "1.0.11"
 
 group "com.joker"
 version v

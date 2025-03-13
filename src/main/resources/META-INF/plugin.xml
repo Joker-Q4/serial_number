@@ -7,6 +7,7 @@
     <br/>
 
     中文:<br/>
+    在光标处生成有序数字
     Serial Number是一个快捷生成序号的插件<br/>
     Serial Number旨在帮助你生成有序的测试用例<br/>
     <br/>
@@ -16,9 +17,14 @@
 
     <change-notes><![CDATA[
 
-        <h3>v1.0.10</h3>
+        <h3>v1.0.11</h3>
         <ul>
             <li>Optimize version compatibility</li>
+        </ul>
+
+        <h3>v1.0.10</h3>
+        <ul>
+            <li>Upgrade gradle plugin</li>
         </ul>
         <h3>v1.0.9</h3>
         <ul>
@@ -78,7 +84,7 @@
          on how to target different products -->
     <depends>com.intellij.modules.lang</depends>
     <depends>com.intellij.modules.platform</depends>
-    <depends>com.intellij.modules.java</depends>
+<!--    <depends>com.intellij.modules.java</depends>-->
 
 
 <!--    <extensions defaultExtensionNs="com.intellij">-->
