@@ -1,0 +1,12 @@
+<idea-plugin>
+    <!-- 仅在含 SQL 模块的产品(如 DataGrip)中生效: DataGrip 没有 Code 菜单, 改注册到 Edit 菜单和编辑器右键菜单 -->
+    <actions>
+        <action id="GenerateSerialNumberSql"
+                class="com.joker.plugin.action.GenerateSerialNumber"
+                text="Serial Number"
+                description="Generate serial number">
+            <add-to-group group-id="EditMenu"/>
+            <add-to-group group-id="EditorPopupMenu"/>
+        </action>
+    </actions>
+</idea-plugin>

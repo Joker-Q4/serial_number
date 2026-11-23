@@ -24,5 +24,6 @@ public class StringMessage {
     public static final String CANNOT_BE_WRITTEN = "File cannot be written!";
     public static final String CANNOT_BE_BLANK = "Can not be empty!";
     public static final String TYPE_LONG = "Must be of type long!";
+    public static final String OVERFLOW = "Value out of long range!";
     public static final String PLEASE_CHECK = "Please Check!";
 }

@@ -5,34 +5,34 @@ import com.intellij.openapi.editor.Caret;
 import com.intellij.openapi.editor.Document;
 import com.intellij.openapi.editor.Editor;
 import com.intellij.openapi.ui.DialogWrapper;
+import com.intellij.openapi.ui.Messages;
 import com.joker.plugin.util.StringMessage;
 import com.joker.plugin.util.StringUtils;
 import com.joker.plugin.util.ValidationUtil;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * @author Joker
- * @since 2021/08/15
+ * @since 2021-08-15
  */
 public class FormDialog extends DialogWrapper {
 
-
-    private final JLabel start = new JLabel(StringMessage.LABEL_START, SwingConstants.CENTER);
+    private final JLabel start = new JLabel(StringMessage.LABEL_START);
     private final JTextField startContent = new JTextField();
 
-    private final JLabel interval = new JLabel(StringMessage.LABEL_INTERVAL, SwingConstants.CENTER);
+    private final JLabel interval = new JLabel(StringMessage.LABEL_INTERVAL);
     private final JTextField intervalContent = new JTextField();
 
     private final Editor editor;
 
-    public FormDialog(@Nullable Editor editor) {
-        super(true);
+    public FormDialog(@NotNull Editor editor) {
+        super(false);
         this.editor = editor;
         setTitle(StringMessage.TITLE);
         init();
@@ -54,14 +54,31 @@ public class FormDialog extends DialogWrapper {
 
     @Override
     protected JComponent createCenterPanel() {
-        JPanel center = new JPanel();
-        center.setLayout(new GridLayout(2, 2));
-        center.add(start);
+        JPanel center = new JPanel(new GridBagLayout());
+        center.setBorder(BorderFactory.createEmptyBorder(8, 8, 8, 8));
+
+        startContent.setPreferredSize(new Dimension(140, 28));
+        intervalContent.setPreferredSize(new Dimension(140, 28));
+
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.insets = new Insets(4, 4, 4, 4);
+        gbc.anchor = GridBagConstraints.EAST;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        center.add(start, gbc);
+        gbc.gridx = 1;
         startContent.setText("1");
-        center.add(startContent);
-        center.add(interval);
+        center.add(startContent, gbc);
+
+        gbc.gridx = 0;
+        gbc.gridy = 1;
+        center.add(interval, gbc);
+        gbc.gridx = 1;
         intervalContent.setText("1");
-        center.add(intervalContent);
+        center.add(intervalContent, gbc);
+
         return center;
     }
 
@@ -73,30 +90,40 @@ public class FormDialog extends DialogWrapper {
 
         @Override
         protected void doAction(ActionEvent e) {
-
             String startText = StringUtils.trimAllWhitespace(startContent.getText());
             String intervalText = StringUtils.trimAllWhitespace(intervalContent.getText());
 
-            if(!ValidationUtil.hasText(startText, intervalText)){
+            if (!ValidationUtil.hasText(startText, intervalText)) {
                 return;
             }
 
-            if(!ValidationUtil.beLongType(startText, intervalText)){
+            if (!ValidationUtil.isLongType(startText, intervalText)) {
                 return;
             }
 
             generate(Long.parseLong(startText), Long.parseLong(intervalText));
-            close(CANCEL_EXIT_CODE);
-
+            close(OK_EXIT_CODE);
         }
     }
 
     private void generate(long startNum, long intervalNum) {
         List<Caret> allCarets = editor.getCaretModel().getAllCarets();
+
+        // 预计算全部数字, 发生溢出时整体中止, 避免只生成一部分
+        List<Long> numbers = new ArrayList<>(allCarets.size());
+        try {
+            for (int i = 0; i < allCarets.size(); i++) {
+                numbers.add(Math.addExact(startNum, Math.multiplyExact(intervalNum, i)));
+            }
+        } catch (ArithmeticException e) {
+            Messages.showMessageDialog(StringMessage.OVERFLOW, StringMessage.ERROR_TITLE, Messages.getWarningIcon());
+            return;
+        }
+
         Document document = editor.getDocument();
         WriteCommandAction.runWriteCommandAction(editor.getProject(), () -> {
             for (int i = 0; i < allCarets.size(); i++) {
-                long num = startNum + intervalNum * i;
+                long num = numbers.get(i);
                 Caret caretTemp = allCarets.get(i);
                 int offset = caretTemp.getOffset();
                 if (caretTemp.hasSelection()) {
@@ -104,8 +131,9 @@ public class FormDialog extends DialogWrapper {
                     int selectionEnd = caretTemp.getSelectionEnd();
                     document.deleteString(offset, selectionEnd);
                 }
-                document.insertString(offset, num + "");
-                caretTemp.moveToOffset(offset + StringUtils.getNumLength(num));
+                String value = String.valueOf(num);
+                document.insertString(offset, value);
+                caretTemp.moveToOffset(offset + value.length());
             }
         });
     }

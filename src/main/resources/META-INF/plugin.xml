@@ -17,6 +17,13 @@
 
     <change-notes><![CDATA[
 
+        <h3>v1.0.12</h3>
+        <ul>
+            <li>Added DataGrip compatibility (Edit menu and editor context menu)</li>
+            <li>Guard against long overflow with a clear error message</li>
+            <li>Reject out-of-range numbers in the input dialog</li>
+        </ul>
+
         <h3>v1.0.11</h3>
         <ul>
             <li>Optimize version compatibility</li>
@@ -82,8 +89,8 @@
 
     <!-- please see https://plugins.jetbrains.com/docs/intellij/plugin-compatibility.html
          on how to target different products -->
-    <depends>com.intellij.modules.lang</depends>
     <depends>com.intellij.modules.platform</depends>
+    <depends optional="true" config-file="serial_number-sql.xml">com.intellij.modules.sql</depends>
 <!--    <depends>com.intellij.modules.java</depends>-->
 
 

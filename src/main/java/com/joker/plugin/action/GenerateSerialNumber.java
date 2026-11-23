@@ -6,7 +6,6 @@ import com.intellij.openapi.editor.Editor;
 import com.intellij.openapi.editor.actionSystem.EditorAction;
 import com.intellij.openapi.editor.actionSystem.EditorActionHandler;
 import com.intellij.openapi.ui.Messages;
-import com.intellij.openapi.ui.ValidationInfo;
 import com.joker.plugin.dialog.FormDialog;
 import com.joker.plugin.util.StringMessage;
 import com.joker.plugin.util.ValidationUtil;
@@ -15,7 +14,7 @@ import org.jetbrains.annotations.Nullable;
 
 /**
  * @author Joker
- * @since 2021/08/15
+ * @since 2021-08-15
  */
 public class GenerateSerialNumber extends EditorAction {
 
@@ -28,15 +27,13 @@ public class GenerateSerialNumber extends EditorAction {
         @Override
         protected void doExecute(@NotNull Editor editor, @Nullable Caret caret, DataContext dataContext) {
 
-            ValidationInfo validationResult = ValidationUtil.isWritable(editor);
-            if (validationResult != null) {
-                Messages.showMessageDialog(validationResult.message, StringMessage.PLEASE_CHECK, Messages.getInformationIcon());
+            String notWritableMessage = ValidationUtil.isWritable(editor);
+            if (notWritableMessage != null) {
+                Messages.showMessageDialog(notWritableMessage, StringMessage.PLEASE_CHECK, Messages.getWarningIcon());
                 return;
             }
 
             FormDialog formDialog = new FormDialog(editor);
-            formDialog.setSize(300, 50);
-            formDialog.setResizable(false);
             formDialog.show();
         }
     }

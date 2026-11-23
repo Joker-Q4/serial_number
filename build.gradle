@@ -4,7 +4,7 @@ plugins {
     id "java"
 }
 
-def v = "1.0.11"
+def v = "1.0.12"
 
 group "com.joker"
 version v
@@ -13,7 +13,6 @@ tasks.withType(JavaCompile).configureEach {
     sourceCompatibility = JavaVersion.VERSION_17
     targetCompatibility = JavaVersion.VERSION_17
     options.encoding = "UTF-8"
-    options.warnings = false
 }
 
 intellijPlatform {
@@ -22,7 +21,7 @@ intellijPlatform {
         name = 'Serial Number'
         version = v
         ideaVersion {
-            sinceBuild = '201'
+            sinceBuild = '222'
 //            untilBuild = '241.*'
             untilBuild = provider { null } as Provider<? extends String>
         }
@@ -48,7 +47,6 @@ repositories {
     maven { url "https://maven.aliyun.com/repository/central" }
     maven { url "https://maven.aliyun.com/repository/public" }
     maven { url "https://maven.aliyun.com/repository/google" }
-    maven { url "https://maven.aliyun.com/repository/gradle-plugin" }
     maven { url "https://plugins.gradle.org/m2/" }
 }
 
@@ -66,10 +64,13 @@ test {
     useJUnitPlatform()
 }
 
+// 构建目标平台: 默认 IC(IntelliJ IDEA Community), 可用 -PplatformCode=DB 切到 DataGrip 验证
+def platformCode = (findProperty('platformCode') ?: 'IC').toString().toUpperCase()
+
 dependencies {
     intellijPlatform {
-//        local 'D:\\Program Files\\JetBrains\\IntelliJ IDEA 2024.3.2.2'
-        local 'D:\\Program Files\\JetBrains\\IntelliJ IDEA Community Edition 2024.3.4.1'
+//        local 'C:\\Program Files\\JetBrains\\IntelliJ IDEA 2025.1.3'
+        create(platformCode, '2025.1.3')
     }
 }
 
